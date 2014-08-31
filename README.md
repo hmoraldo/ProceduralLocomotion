@@ -11,6 +11,7 @@ Notes
 To view the trained locomotion, do:
 
 `cd src`
+
 `python AnimationViewer.py`
 
 Notes on training the model will be added in the future.
