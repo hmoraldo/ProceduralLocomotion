@@ -10,7 +10,7 @@ from Utils import getJsonData
 
 import Image, ImageDraw
 
-normalized = getJsonData("data/normalized.json")
+normalized = getJsonData("../data/results/normalized.json")
 
 imgsize = 500
 img = Image.new("RGB", (imgsize, imgsize), "black")

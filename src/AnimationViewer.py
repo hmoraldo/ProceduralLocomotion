@@ -3,7 +3,7 @@ from PIL import Image, ImageTk
 import sys
 import Tkinter as tk
 
-sys.path.insert(0, "../editor")
+sys.path.insert(0, "dep")
 import Utils
 
 canvas = None
@@ -121,7 +121,7 @@ def OpenFromFile(window, filename):
 	fillEditorWindow(window)
 
 if __name__ == "__main__":
-	OpenFromFile(tk.Tk(), "data/learned.json")
+	OpenFromFile(tk.Tk(), "../data/results/learned.json")
 
 
 

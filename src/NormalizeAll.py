@@ -27,8 +27,8 @@ def getCsvProperties(filename):
 	return data
 
 
-files = glob.glob("../editor/data/*/*.json")
-properties = getCsvProperties("../editor/data/properties.csv")
+files = glob.glob("../data/editor/*/*.json")
+properties = getCsvProperties("../data/properties/properties.csv")
 
 def distance(x, y, x2, y2):
 	return math.sqrt(float((x - x2)**2 + (y - y2)**2))
@@ -149,7 +149,7 @@ for filename in files:
 		finalData["frames"].append(newFrame)
 
 
-f = open("data/normalized.json", "w")
+f = open("../data/results/normalized.json", "w")
 json.dump(finalData, f)
 f.close()
 
