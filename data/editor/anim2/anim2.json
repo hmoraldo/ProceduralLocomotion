@@ -1,0 +1,549 @@
+{
+    "imageGlob": "data/anim2/*.jpg", 
+    "frames": [
+        {
+            "vertices": [
+                {
+                    "y": 297, 
+                    "x": 305, 
+                    "name": "reference-floor"
+                }, 
+                {
+                    "y": 6, 
+                    "x": 295, 
+                    "name": "head-ear"
+                }, 
+                {
+                    "y": 18, 
+                    "x": 281, 
+                    "name": "neck"
+                }, 
+                {
+                    "y": 32, 
+                    "x": 265, 
+                    "name": "shoulder"
+                }, 
+                {
+                    "y": 103, 
+                    "x": 286, 
+                    "name": "elbow-front"
+                }, 
+                {
+                    "y": 103, 
+                    "x": 287, 
+                    "name": "elbow-back"
+                }, 
+                {
+                    "y": 140, 
+                    "x": 309, 
+                    "name": "wrist-front"
+                }, 
+                {
+                    "y": 143, 
+                    "x": 309, 
+                    "name": "wrist-back"
+                }, 
+                {
+                    "y": 122, 
+                    "x": 230, 
+                    "name": "waist"
+                }, 
+                {
+                    "y": 190, 
+                    "x": 297, 
+                    "name": "knee-front"
+                }, 
+                {
+                    "y": 207, 
+                    "x": 219, 
+                    "name": "knee-back"
+                }, 
+                {
+                    "y": 294, 
+                    "x": 308, 
+                    "name": "foot-front"
+                }, 
+                {
+                    "y": 274, 
+                    "x": 360, 
+                    "name": "footend-front"
+                }, 
+                {
+                    "y": 251, 
+                    "x": 141, 
+                    "name": "foot-back"
+                }, 
+                {
+                    "y": 299, 
+                    "x": 154, 
+                    "name": "footend-back"
+                }
+            ], 
+            "name": ""
+        }, 
+        {
+            "vertices": [
+                {
+                    "y": 308, 
+                    "x": 251, 
+                    "name": "reference-floor"
+                }, 
+                {
+                    "y": 7, 
+                    "x": 288, 
+                    "name": "head-ear"
+                }, 
+                {
+                    "y": 27, 
+                    "x": 274, 
+                    "name": "neck"
+                }, 
+                {
+                    "y": 41, 
+                    "x": 261, 
+                    "name": "shoulder"
+                }, 
+                {
+                    "y": 104, 
+                    "x": 274, 
+                    "name": "elbow-front"
+                }, 
+                {
+                    "y": 104, 
+                    "x": 275, 
+                    "name": "elbow-back"
+                }, 
+                {
+                    "y": 141, 
+                    "x": 311, 
+                    "name": "wrist-front"
+                }, 
+                {
+                    "y": 141, 
+                    "x": 313, 
+                    "name": "wrist-back"
+                }, 
+                {
+                    "y": 133, 
+                    "x": 232, 
+                    "name": "waist"
+                }, 
+                {
+                    "y": 205, 
+                    "x": 279, 
+                    "name": "knee-front"
+                }, 
+                {
+                    "y": 214, 
+                    "x": 255, 
+                    "name": "knee-back"
+                }, 
+                {
+                    "y": 304, 
+                    "x": 253, 
+                    "name": "foot-front"
+                }, 
+                {
+                    "y": 303, 
+                    "x": 312, 
+                    "name": "footend-front"
+                }, 
+                {
+                    "y": 228, 
+                    "x": 158, 
+                    "name": "foot-back"
+                }, 
+                {
+                    "y": 282, 
+                    "x": 166, 
+                    "name": "footend-back"
+                }
+            ], 
+            "name": ""
+        }, 
+        {
+            "vertices": [
+                {
+                    "y": 316, 
+                    "x": 186, 
+                    "name": "reference-floor"
+                }, 
+                {
+                    "y": 5, 
+                    "x": 282, 
+                    "name": "head-ear"
+                }, 
+                {
+                    "y": 23, 
+                    "x": 269, 
+                    "name": "neck"
+                }, 
+                {
+                    "y": 40, 
+                    "x": 259, 
+                    "name": "shoulder"
+                }, 
+                {
+                    "y": 100, 
+                    "x": 265, 
+                    "name": "elbow-front"
+                }, 
+                {
+                    "y": 101, 
+                    "x": 271, 
+                    "name": "elbow-back"
+                }, 
+                {
+                    "y": 137, 
+                    "x": 305, 
+                    "name": "wrist-front"
+                }, 
+                {
+                    "y": 142, 
+                    "x": 306, 
+                    "name": "wrist-back"
+                }, 
+                {
+                    "y": 134, 
+                    "x": 229, 
+                    "name": "waist"
+                }, 
+                {
+                    "y": 229, 
+                    "x": 244, 
+                    "name": "knee-front"
+                }, 
+                {
+                    "y": 197, 
+                    "x": 289, 
+                    "name": "knee-back"
+                }, 
+                {
+                    "y": 305, 
+                    "x": 188, 
+                    "name": "foot-front"
+                }, 
+                {
+                    "y": 312, 
+                    "x": 246, 
+                    "name": "footend-front"
+                }, 
+                {
+                    "y": 243, 
+                    "x": 199, 
+                    "name": "foot-back"
+                }, 
+                {
+                    "y": 279, 
+                    "x": 231, 
+                    "name": "footend-back"
+                }
+            ], 
+            "name": ""
+        }, 
+        {
+            "vertices": [
+                {
+                    "y": 314, 
+                    "x": 123, 
+                    "name": "reference-floor"
+                }, 
+                {
+                    "y": 3, 
+                    "x": 279, 
+                    "name": "head-ear"
+                }, 
+                {
+                    "y": 10, 
+                    "x": 268, 
+                    "name": "neck"
+                }, 
+                {
+                    "y": 23, 
+                    "x": 260, 
+                    "name": "shoulder"
+                }, 
+                {
+                    "y": 68, 
+                    "x": 247, 
+                    "name": "elbow-front"
+                }, 
+                {
+                    "y": 67, 
+                    "x": 244, 
+                    "name": "elbow-back"
+                }, 
+                {
+                    "y": 134, 
+                    "x": 275, 
+                    "name": "wrist-front"
+                }, 
+                {
+                    "y": 137, 
+                    "x": 277, 
+                    "name": "wrist-back"
+                }, 
+                {
+                    "y": 133, 
+                    "x": 234, 
+                    "name": "waist"
+                }, 
+                {
+                    "y": 208, 
+                    "x": 208, 
+                    "name": "knee-front"
+                }, 
+                {
+                    "y": 184, 
+                    "x": 298, 
+                    "name": "knee-back"
+                }, 
+                {
+                    "y": 271, 
+                    "x": 140, 
+                    "name": "foot-front"
+                }, 
+                {
+                    "y": 316, 
+                    "x": 175, 
+                    "name": "footend-front"
+                }, 
+                {
+                    "y": 283, 
+                    "x": 268, 
+                    "name": "foot-back"
+                }, 
+                {
+                    "y": 281, 
+                    "x": 324, 
+                    "name": "footend-back"
+                }
+            ], 
+            "name": ""
+        }, 
+        {
+            "vertices": [
+                {
+                    "y": 318, 
+                    "x": 89, 
+                    "name": "reference-floor"
+                }, 
+                {
+                    "y": 2, 
+                    "x": 278, 
+                    "name": "head-ear"
+                }, 
+                {
+                    "y": 11, 
+                    "x": 265, 
+                    "name": "neck"
+                }, 
+                {
+                    "y": 25, 
+                    "x": 250, 
+                    "name": "shoulder"
+                }, 
+                {
+                    "y": 71, 
+                    "x": 223, 
+                    "name": "elbow-front"
+                }, 
+                {
+                    "y": 65, 
+                    "x": 248, 
+                    "name": "elbow-back"
+                }, 
+                {
+                    "y": 124, 
+                    "x": 226, 
+                    "name": "wrist-front"
+                }, 
+                {
+                    "y": 105, 
+                    "x": 274, 
+                    "name": "wrist-back"
+                }, 
+                {
+                    "y": 122, 
+                    "x": 239, 
+                    "name": "waist"
+                }, 
+                {
+                    "y": 210, 
+                    "x": 230, 
+                    "name": "knee-front"
+                }, 
+                {
+                    "y": 197, 
+                    "x": 283, 
+                    "name": "knee-back"
+                }, 
+                {
+                    "y": 229, 
+                    "x": 129, 
+                    "name": "foot-front"
+                }, 
+                {
+                    "y": 278, 
+                    "x": 136, 
+                    "name": "footend-front"
+                }, 
+                {
+                    "y": 299, 
+                    "x": 274, 
+                    "name": "foot-back"
+                }, 
+                {
+                    "y": 290, 
+                    "x": 331, 
+                    "name": "footend-back"
+                }
+            ], 
+            "name": ""
+        }
+    ], 
+    "lines": [
+        {
+            "color": "white", 
+            "to": 2, 
+            "from": 1
+        }, 
+        {
+            "color": "white", 
+            "to": 3, 
+            "from": 2
+        }, 
+        {
+            "color": "white", 
+            "to": 8, 
+            "from": 3
+        }, 
+        {
+            "color": "blue", 
+            "to": 4, 
+            "from": 3
+        }, 
+        {
+            "color": "blue", 
+            "to": 6, 
+            "from": 4
+        }, 
+        {
+            "color": "blue", 
+            "to": 9, 
+            "from": 8
+        }, 
+        {
+            "color": "blue", 
+            "to": 11, 
+            "from": 9
+        }, 
+        {
+            "color": "blue", 
+            "to": 12, 
+            "from": 11
+        }, 
+        {
+            "color": "green", 
+            "to": 5, 
+            "from": 3
+        }, 
+        {
+            "color": "green", 
+            "to": 7, 
+            "from": 5
+        }, 
+        {
+            "color": "green", 
+            "to": 10, 
+            "from": 8
+        }, 
+        {
+            "color": "green", 
+            "to": 13, 
+            "from": 10
+        }, 
+        {
+            "color": "green", 
+            "to": 14, 
+            "from": 13
+        }
+    ], 
+    "vertices": [
+        {
+            "y": 297, 
+            "x": 305, 
+            "name": "reference-floor"
+        }, 
+        {
+            "y": 6, 
+            "x": 295, 
+            "name": "head-ear"
+        }, 
+        {
+            "y": 18, 
+            "x": 281, 
+            "name": "neck"
+        }, 
+        {
+            "y": 32, 
+            "x": 265, 
+            "name": "shoulder"
+        }, 
+        {
+            "y": 103, 
+            "x": 286, 
+            "name": "elbow-front"
+        }, 
+        {
+            "y": 103, 
+            "x": 287, 
+            "name": "elbow-back"
+        }, 
+        {
+            "y": 140, 
+            "x": 309, 
+            "name": "wrist-front"
+        }, 
+        {
+            "y": 143, 
+            "x": 309, 
+            "name": "wrist-back"
+        }, 
+        {
+            "y": 122, 
+            "x": 230, 
+            "name": "waist"
+        }, 
+        {
+            "y": 190, 
+            "x": 297, 
+            "name": "knee-front"
+        }, 
+        {
+            "y": 207, 
+            "x": 219, 
+            "name": "knee-back"
+        }, 
+        {
+            "y": 294, 
+            "x": 308, 
+            "name": "foot-front"
+        }, 
+        {
+            "y": 274, 
+            "x": 360, 
+            "name": "footend-front"
+        }, 
+        {
+            "y": 251, 
+            "x": 141, 
+            "name": "foot-back"
+        }, 
+        {
+            "y": 299, 
+            "x": 154, 
+            "name": "footend-back"
+        }
+    ]
+}
