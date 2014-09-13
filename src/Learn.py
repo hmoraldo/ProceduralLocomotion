@@ -5,6 +5,8 @@ from scipy.optimize import curve_fit
 
 from Utils import getJsonData, getVertexByName
 
+verbose = False
+
 def fitSingleF(x1, x2, a, b, c, d, e):
 	return x1 * x1 * a + x1 * b + x2 * x2 * c + x2 * d + e
 
@@ -71,13 +73,14 @@ for i in range(len(data["vertices"])):
 		ret = learnVertex(i, coordinate)
 		result[coordinate].append({"vertex" : name, "result" : ret})
 
-		print name + ":"
+		if verbose: print name + ":"
 		for t in ["testing", "training"]:
 			err = ret[t + "Error"]
-			print "\t" + t + " minerr: " + str(err["minerr"])
-			print "\t" + t + " maxerr: " + str(err["maxerr"])
-			print "\t" + t + " meanerr: " + str(err["meanerr"])
 			allMeans[t].append(err["meanerr"])
+			if verbose:
+				print "\t" + t + " minerr: " + str(err["minerr"])
+				print "\t" + t + " maxerr: " + str(err["maxerr"])
+				print "\t" + t + " meanerr: " + str(err["meanerr"])
 
 for t in ["testing", "training"]:
 	print

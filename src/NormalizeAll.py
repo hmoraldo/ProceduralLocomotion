@@ -1,3 +1,4 @@
+import copy
 import csv
 import glob
 import json
@@ -7,6 +8,9 @@ import os.path
 from scipy.optimize import curve_fit
 
 from Utils import getJsonData, getVertexByName
+
+allowInterpolatedData = True
+alwaysUseArmData = True # it is too sparse otherwise
 
 def parseBoolean(value):
 	if value == "1": return True
@@ -47,7 +51,7 @@ def linearRegressionSimple(points):
 	return a, b
 
 # normalizes and prepares all animation data (in place)
-def processAnimation(animation, fileProperties):
+def normalizeAnimation(animation, fileProperties):
 
 	vertices, frames = animation["vertices"], animation["frames"]
 
@@ -57,27 +61,34 @@ def processAnimation(animation, fileProperties):
 	backArmVertices = ["elbow-back", "wrist-back"]
 	if not fileProperties["Head-vertex-useful"]:
 		verticesToSkip.append("head-ear")
-	if fileProperties["Arms-useful"]:
-		if not fileProperties["Both-arms-visible"]:
-			if fileProperties["Front-leg-closest-to-camera"]:
-				verticesToSkip.extend(backArmVertices)
-			else:
-				verticesToSkip.extend(frontArmVertices)
-	else:
-		verticesToSkip.extend(frontArmVertices)
-		verticesToSkip.extend(backArmVertices)
 
-	# normalize coordinates using leg size
+	if not alwaysUseArmData:
+		if fileProperties["Arms-useful"]:
+			if not fileProperties["Both-arms-visible"]:
+				if fileProperties["Front-leg-closest-to-camera"]:
+					verticesToSkip.extend(backArmVertices)
+				else:
+					verticesToSkip.extend(frontArmVertices)
+		else:
+			verticesToSkip.extend(frontArmVertices)
+			verticesToSkip.extend(backArmVertices)
+
+	# normalize coordinates using leg - neck size
 	legSizes = []
 	for frame in frames:
+		neck = frame["vertices"][getVertexByName(vertices, "neck")]
+		shoulder = frame["vertices"][getVertexByName(vertices, "shoulder")]
 		waist = frame["vertices"][getVertexByName(vertices, "waist")]
 		kneefront = frame["vertices"][getVertexByName(vertices, "knee-front")]
 		kneeback = frame["vertices"][getVertexByName(vertices, "knee-back")]
 		footfront = frame["vertices"][getVertexByName(vertices, "foot-front")]
 		footback = frame["vertices"][getVertexByName(vertices, "foot-back")]
+		footendfront = frame["vertices"][getVertexByName(vertices, "footend-front")]
+		footendback = frame["vertices"][getVertexByName(vertices, "footend-back")]
+		neckToWaist = vertexDistance(neck, shoulder) + vertexDistance(shoulder, waist)
 
-		legSizes.append(vertexDistance(waist, kneefront) + vertexDistance(kneefront, footfront))
-		legSizes.append(vertexDistance(waist, kneeback) + vertexDistance(kneeback, footback))
+		legSizes.append(neckToWaist + vertexDistance(waist, kneefront) + vertexDistance(kneefront, footfront) + vertexDistance(footfront, footendfront))
+		legSizes.append(neckToWaist + vertexDistance(waist, kneeback) + vertexDistance(kneeback, footback) + vertexDistance(footback, footendback))
 
 	meanLegSize = numpy.mean(legSizes)
 	refVertex = getVertexByName(vertices, "reference-floor")
@@ -132,16 +143,50 @@ def processAnimation(animation, fileProperties):
 	backFootEnd = getVertexByName(vertices, "footend-back")
 	animation["stepWidth"] = abs(frames[0]["vertices"][backFootEnd]["x"] - frames[-1]["vertices"][backFootEnd]["x"])
 
+# our training data may be too sparse... if allowInterpolatedData is True, we interpolate between frames to provide the training algorithm
+# with more data of how the animations work
+def addInterpolatedData(animation):
+	newFrames = []
+	frames = animation["frames"]
+
+	for i in range(len(frames) - 1):
+		frame1 = frames[i]
+		frame2 = frames[i + 1]
+
+		newf = {
+			"animationPercent" : numpy.mean([frame1["animationPercent"], frame2["animationPercent"]]),
+			"vertices" : []
+		}
+
+		for vidx in range(len(frame1["vertices"])):
+			newf["vertices"].append(copy.deepcopy(frame1["vertices"][vidx]))
+			for coordinate in ["x", "y"]:
+				meanValue = None
+				if frame1["vertices"][vidx][coordinate] != None:
+					meanValue = numpy.mean([frame1["vertices"][vidx][coordinate], frame2["vertices"][vidx][coordinate]])
+
+				newf["vertices"][vidx][coordinate] = meanValue
+
+		newFrames.append(newf)
+
+	frames.extend(newFrames)
 
 initialData = getJsonData(files[0])
 finalData = {"vertices" : initialData["vertices"], "lines" : initialData["lines"], "frames" : []}
+
+minStepWidth = 10000
+maxStepWidth = 0
 
 for filename in files:
 	data = getJsonData(filename)
 
 	fileProperties = properties[os.path.basename(os.path.splitext(filename)[0])]
 
-	processAnimation(data, fileProperties)
+	normalizeAnimation(data, fileProperties)
+	if allowInterpolatedData: addInterpolatedData(data)
+
+	minStepWidth = min(data["stepWidth"], minStepWidth)
+	maxStepWidth = max(data["stepWidth"], maxStepWidth)
 
 	for frame in data["frames"]:
 		newFrame = {"animationPercent":frame["animationPercent"], "stepWidth":data["stepWidth"]}
@@ -153,4 +198,10 @@ f = open("../data/results/normalized.json", "w")
 json.dump(finalData, f)
 f.close()
 
+f = open("../data/results/stepWidth.json", "w")
+json.dump({"minStepWidth":minStepWidth, "maxStepWidth":maxStepWidth}, f)
+f.close()
 
+
+print "minStepWidth: " + str(minStepWidth)
+print "maxStepWidth: " + str(maxStepWidth)

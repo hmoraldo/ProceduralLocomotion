@@ -13,14 +13,19 @@ AnimationPercent = None
 StepSize = None
 lblAnimationPercent, lblStepSize = None, None
 canvasSize = 400
-step = 0.1
-minStepSize = 1.
-maxStepSize = 2.
+step = 0.03
+minStepSize = None
+maxStepSize = None
 
 def fillEditorWindow(window):
 	global canvas, canvasSize, lblAnimationPercent, lblStepSize
 
 	window.title("Animation Viewer")
+
+	window.bind("<Left>", btnPrevAnimationPercentClick)
+	window.bind("<Right>", btnNextAnimationPercentClick)
+	window.bind("<Up>", btnNextStepSizeClick)
+	window.bind("<Down>", btnPrevStepSizeClick)
 
 	canvas = tk.Canvas(window)
 	canvas.grid(row=0, column=0, columnspan=7)
@@ -90,8 +95,8 @@ def computeVertices():
 	vertices = []
 
 	for i in range(len(Trained["x"])):
-		x = computeVertexValue(Trained["x"][i]["result"]) * canvasSize / 6 + canvasSize * 2. / 3
-		y = computeVertexValue(Trained["y"][i]["result"]) * canvasSize / 6 + canvasSize * 2. / 3
+		x = computeVertexValue(Trained["x"][i]["result"]) * canvasSize / 4 + canvasSize * 2. / 3
+		y = computeVertexValue(Trained["y"][i]["result"]) * canvasSize / 4 + canvasSize * 2. / 3
 		vertices.append({"x":x, "y":y})
 
 	return vertices
@@ -106,14 +111,21 @@ def updateImage():
 	Utils.UpdateImage(canvas, 0, 0, vertices, Lines, currentImage, noSelection, noSelection)
 
 def OpenFromFile(window, filename):
-	global Lines, Trained, AnimationPercent, StepSize, minStepSize
+	global Lines, Trained, AnimationPercent, StepSize, minStepSize, maxStepSize
 
 	AnimationPercent = 0
-	StepSize = minStepSize
 
 	f = open(filename)
 	data = json.load(f)
 	f.close()	
+
+	f = open("../data/results/stepWidth.json")
+	stepWidth = json.load(f)
+	f.close()	
+
+	minStepSize = stepWidth["minStepWidth"]
+	maxStepSize = stepWidth["maxStepWidth"]
+	StepSize = minStepSize
 
 	Lines = data["lines"]
 	Trained = data["trained"]
