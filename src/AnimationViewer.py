@@ -1,8 +1,8 @@
 import json, glob
-from PIL import Image, ImageTk
 import sys
 import Tkinter as tk
 
+import VertexUtils
 sys.path.insert(0, "dep")
 import Utils
 
@@ -36,6 +36,8 @@ def fillEditorWindow(window):
 
 	tk.Label(window, text="Step size:").grid(row=2, column=0)
 	lblStepSize = Utils.MakeArrowButtons(window, 2, 1, btnPrevStepSizeClick, btnNextStepSizeClick)
+
+	window.update()
 
 	updateData()
 	updateImage()
@@ -83,30 +85,14 @@ def updateData():
 	lblStepSize["text"] = "{0:.1f}".format(StepSize)
 	lblAnimationPercent["text"] = "{0:.1f}".format(AnimationPercent)
 
-def computeVertexValue(data):
-	global StepSize, AnimationPercent
-	x1 = StepSize
-	x2 = AnimationPercent
-	a, b, c, d, e = data["a"], data["b"], data["c"], data["d"], data["e"]
-	return x1 * x1 * a + x1 * b + x2 * x2 * c + x2 * d + e	
-
-def computeVertices():
-	global Trained, canvasSize
-	vertices = []
-
-	for i in range(len(Trained["x"])):
-		x = computeVertexValue(Trained["x"][i]["result"]) * canvasSize / 4 + canvasSize * 2. / 3
-		y = computeVertexValue(Trained["y"][i]["result"]) * canvasSize / 4 + canvasSize * 2. / 3
-		vertices.append({"x":x, "y":y})
-
-	return vertices
-
 def updateImage():
 	global canvas, Lines
+	global Trained, canvasSize, StepSize, AnimationPercent
 
 	noSelection = -1
 	currentImage = None
-	vertices = computeVertices()
+	vertices = VertexUtils.computeVertices(Trained, StepSize, AnimationPercent)
+	vertices = VertexUtils.translateVertices(VertexUtils.scaleVertices(vertices, canvasSize / 4), canvasSize * 2. / 3, canvasSize * 2. / 3)
 
 	Utils.UpdateImage(canvas, 0, 0, vertices, Lines, currentImage, noSelection, noSelection)
 
@@ -115,13 +101,8 @@ def OpenFromFile(window, filename):
 
 	AnimationPercent = 0
 
-	f = open(filename)
-	data = json.load(f)
-	f.close()	
-
-	f = open("../data/results/stepWidth.json")
-	stepWidth = json.load(f)
-	f.close()	
+	data = VertexUtils.getJsonData(filename)
+	stepWidth = VertexUtils.getJsonData("../data/results/stepWidth.json")
 
 	minStepSize = stepWidth["minStepWidth"]
 	maxStepSize = stepWidth["maxStepWidth"]
