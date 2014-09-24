@@ -1,9 +1,10 @@
 Procedural Locomotion
 =====================
 
-Automating human walk cycles using machine learning (work in progress)
+Automating human walk cycles using machine learning
 
-![example](img/anim-viewer.png)
+![example](img/animation.gif)
+
 
 Notes
 -----
@@ -16,5 +17,5 @@ To view the trained locomotion, do:
 
 Notes on training the model will be added in the future.
 
-This is a work in progress project. It uses data extracted by the [animation editor project](https://github.com/hmoraldo/AnimationEditor).
+This project uses data extracted by the [animation editor project](https://github.com/hmoraldo/AnimationEditor).
 
