@@ -3,7 +3,7 @@ from PIL import Image, ImageDraw
 import subprocess
 
 import VertexUtils
-sys.path.insert(0, "dep")
+sys.path.insert(0, "../editor")
 import Utils
 
 def loadData(datafile, stepfile):
@@ -52,63 +52,77 @@ class SimpleWalker:
 		# front foot again)
 		self.stepLength = vertices1[indexFootBack]["x"] - vertices0[indexFootFront]["x"]
 
+	# invert front foot and back foot, etc.
+	def invertFrontAndBack(self, vertices):
+		def exchangeVertexData(name1, name2):
+			index1 = getVertexIndex(self.trained, name1)
+			index2 = getVertexIndex(self.trained, name2)
+
+			for c in ["x", "y"]:
+				vertices[index1][c], vertices[index2][c] = vertices[index2][c], vertices[index1][c]
+
+		exchangeVertexData("foot-front", "foot-back")
+		exchangeVertexData("footend-front", "footend-back")
+		exchangeVertexData("knee-front", "knee-back")
+		exchangeVertexData("elbow-front", "elbow-back")
+		exchangeVertexData("wrist-front", "wrist-back")
+
+	def getVerticesAtFrame(self, frame, refVertexX, invertFrontAndBack):
+		vertices = VertexUtils.computeVertices(self.trained, self.StepArgument, frame % 1)
+		vertices = VertexUtils.translateVertices(vertices, refVertexX, 0)
+		if invertFrontAndBack:
+			self.invertFrontAndBack(vertices)
+		return vertices
+
+	def getNextVertices(self, invertFrontAndBack):
+		return self.getVerticesAtFrame(0, self.refVertexX + self.stepLength, invertFrontAndBack)
+
 	def moveForward(self, percent):
 		lastIntFrame = math.floor(self.currentFrame)
 		self.currentFrame += percent
+
 		self.refVertexX += (math.floor(self.currentFrame) - lastIntFrame) * self.stepLength
 
+		for i in range(int(math.floor(self.currentFrame) - lastIntFrame)):
+			self.frontLeftFirst = not self.frontLeftFirst
+
 	def getVertices(self):
-		vertices = VertexUtils.computeVertices(self.trained, self.StepArgument, self.currentFrame % 1)
-		return VertexUtils.translateVertices(vertices, self.refVertexX, 0)
+		vertices = self.getVerticesAtFrame(self.currentFrame, self.refVertexX, not self.frontLeftFirst)
+
+		frameLerpStart = 0.6 # at what frame we start interpolating
+		if self.currentFrame % 1 >= frameLerpStart:
+			nextVertices = self.getNextVertices(self.frontLeftFirst)
+
+			vertices = VertexUtils.lerpVertices(vertices, nextVertices, ((self.currentFrame % 1) - frameLerpStart) / (1 - frameLerpStart))
+
+		return vertices
 
 
 
-StepArgument = 0.6
+StepArgument = 0.55
+StepArgument = 1.25
 width, height = 800, 300
 
-MinStepArgument, MaxStepArgument, Lines, Trained = loadData("../data/results/learned.json", "../data/results/stepWidth.json")
+MinStepArgument, MaxStepArgument, Lines, Trained = loadData("data/learned.json", "data/stepWidth.json")
 
 walker = SimpleWalker(Trained, StepArgument)
+refVertexIndex = getVertexIndex(Trained, "reference-floor")
 
-for i in range(40):
-	walker.moveForward(0.1)
+stepCount = 10
+stepIncrement = 0.1
+
+for i in range(int(math.ceil(stepCount / stepIncrement))):
+	walker.moveForward(stepIncrement)
 	vertices = walker.getVertices()
 	vertices = VertexUtils.translateVertices(
 		VertexUtils.scaleVertices(vertices, height / 4),
-		width * 2. / 3,
+		width / 10,
 		height * 2. / 3)
 
-	im = Utils.DrawFrame(None, width, height, 0, 0, vertices, Lines, None, None)
-	im.save("../img/frame" + format(i, "03") + ".jpg")
+	im = Utils.DrawFrame(None, width, height, 0, 0, vertices, Lines, None, None, refVertexIndex)
+	im.save("imgs/frame" + format(i, "03") + ".jpg")
 
 
-subprocess.call(["convert", "-delay", "5", "-loop", "0", "../img/frame*.jpg", "../img/animation.gif"])
-
-
-"""
-next:
-- agregar metodos en simple walker
-- simple walker deberia tener un init que prepara las variables, y recibir enre otros, al trained model
-
-
-funciones:
-- increment frame
-	- pertenece a sig frame?
-		- si si, pasar al otro objeto
-		- si no, calcular pos de todos los vertices, calcular next ref if needed, hacer blend
-- compute next ref frame
-- blend
-- compute single frame
-
-main
-- compute varios frames a distintas velocidades o mezclandolos
-- hacer gif con resultado
-- agregar que la camara tenga un foco central
-
-todo:
-- agregar link a video del que saque el screenshot, o cambiarlo por otro
-
-"""
-
+subprocess.call(["convert", "-delay", "5", "-loop", "0", "imgs/frame*.jpg", "imgs/animation.gif"])
 
 

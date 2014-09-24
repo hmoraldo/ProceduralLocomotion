@@ -62,7 +62,7 @@ def learnVertex(vertexIdx, vertexCoordinate):
 		}
 
 
-data = getJsonData("../data/results/normalized.json")
+data = getJsonData("data/normalized.json")
 
 result = {"x":[], "y":[]}
 allMeans = {"testing":[], "training":[]}
@@ -93,7 +93,7 @@ for t in ["testing", "training"]:
 
 finalData = {"lines":data["lines"], "trained":result}
 
-f = open("../data/results/learned.json", "w")
+f = open("data/learned.json", "w")
 json.dump(finalData, f)
 f.close()
 

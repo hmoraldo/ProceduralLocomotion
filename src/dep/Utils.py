@@ -17,7 +17,8 @@ def MakeArrowButtons(window, row, col, leftHandler, rightHandler):
 
 	return lblVertex
 
-def DrawFrame(currentImage, width, height, originX, originY, vertices, lines, currentVertex, currentLine):
+def DrawFrame(currentImage, width, height, originX, originY, vertices, lines, currentVertex, currentLine, skipVertex):
+
 	if currentImage == None:
 		im = Image.new('RGBA', (width, height), (150, 150, 150, 0)) 
 	else:
@@ -32,11 +33,12 @@ def DrawFrame(currentImage, width, height, originX, originY, vertices, lines, cu
 		if c == currentVertex:
 			color = "red"
 
-		draw.ellipse((
-			v["x"] - radius + originX,
-			v["y"] - radius + originY,
-			v["x"] + radius + originX,
-			v["y"] + radius + originY), fill=color)
+		if skipVertex != c:
+			draw.ellipse((
+				v["x"] - radius + originX,
+				v["y"] - radius + originY,
+				v["x"] + radius + originX,
+				v["y"] + radius + originY), fill=color)
 
 	for c in range(len(lines)):
 		l = lines[c]
@@ -58,7 +60,7 @@ def DrawFrame(currentImage, width, height, originX, originY, vertices, lines, cu
 def UpdateImage(canvas, originX, originY, vertices, lines, currentImage, currentVertex, currentLine):
 	canvas.delete(tk.ALL)
 	canvas.image = ImageTk.PhotoImage(
-		DrawFrame(currentImage, canvas.winfo_width(), canvas.winfo_height(), originX, originY, vertices, lines, currentVertex, currentLine))
+		DrawFrame(currentImage, canvas.winfo_width(), canvas.winfo_height(), originX, originY, vertices, lines, currentVertex, currentLine, None))
 	canvas.create_image(0, 0, image=canvas.image, anchor=tk.NW)
 
 def Save(fileName, imageGlob, vertices, lines, frames):

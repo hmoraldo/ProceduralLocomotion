@@ -34,4 +34,9 @@ def scaleVertices(vertices, scale):
 def translateVertices(vertices, x, y):
 	return [{"x":v["x"] + x, "y":v["y"] + y} for v in vertices]
 
+def lerp(x0, x1, r):
+	return (x1 - x0) * r + x0
+
+def lerpVertices(vertices0, vertices1, value):
+	return [{"x" : lerp(vertices0[i]["x"], vertices1[i]["x"], value), "y" : lerp(vertices0[i]["y"], vertices1[i]["y"], value)} for i in range(len(vertices0))]
 
