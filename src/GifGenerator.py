@@ -3,7 +3,7 @@ from PIL import Image, ImageDraw
 import subprocess
 
 import VertexUtils
-sys.path.insert(0, "../editor")
+sys.path.insert(0, "dep")
 import Utils
 
 def loadData(datafile, stepfile):
@@ -103,7 +103,7 @@ StepArgument = 0.55
 StepArgument = 1.25
 width, height = 800, 300
 
-MinStepArgument, MaxStepArgument, Lines, Trained = loadData("data/learned.json", "data/stepWidth.json")
+MinStepArgument, MaxStepArgument, Lines, Trained = loadData("../data/results/learned.json", "../data/results/stepWidth.json")
 
 walker = SimpleWalker(Trained, StepArgument)
 refVertexIndex = getVertexIndex(Trained, "reference-floor")
@@ -123,6 +123,6 @@ for i in range(int(math.ceil(stepCount / stepIncrement))):
 	im.save("imgs/frame" + format(i, "03") + ".jpg")
 
 
-subprocess.call(["convert", "-delay", "5", "-loop", "0", "imgs/frame*.jpg", "imgs/animation.gif"])
+subprocess.call(["convert", "-delay", "5", "-loop", "0", "../img/frame*.jpg", "../img/animation.gif"])
 
 

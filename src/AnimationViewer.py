@@ -3,7 +3,7 @@ import sys
 import Tkinter as tk
 
 import VertexUtils
-sys.path.insert(0, "../editor")
+sys.path.insert(0, "dep")
 import Utils
 
 canvas = None
@@ -102,7 +102,7 @@ def OpenFromFile(window, filename):
 	AnimationPercent = 0
 
 	data = VertexUtils.getJsonData(filename)
-	stepWidth = VertexUtils.getJsonData("data/stepWidth.json")
+	stepWidth = VertexUtils.getJsonData("../data/results/stepWidth.json")
 
 	minStepSize = stepWidth["minStepWidth"]
 	maxStepSize = stepWidth["maxStepWidth"]
@@ -114,7 +114,7 @@ def OpenFromFile(window, filename):
 	fillEditorWindow(window)
 
 if __name__ == "__main__":
-	OpenFromFile(tk.Tk(), "data/learned.json")
+	OpenFromFile(tk.Tk(), "../data/results/learned.json")
 
 
 
