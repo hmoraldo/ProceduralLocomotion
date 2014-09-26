@@ -5,7 +5,7 @@ Automating human walk cycles using machine learning.
 
 ![example](img/animation1.gif)
 
-This system allows generatation of continuous walking animations that have a speed (or step distance) parameter. The same procedural animation can be run at different speeds: walking, running, and any other speed in between.
+This system allows generation of continuous walking animations that have a speed (or step distance) parameter. The same procedural animation can be run at different speeds: walking, running, and any other speed in between.
 
 ![example 2](img/animation2.gif)
 
@@ -28,7 +28,7 @@ The way to train the procedural locomotion system is as follows:
 
 ![anim viewer](img/anim-viewer.png)
 
-* The result model is a model for a single walking step. A walking animation requires many such single steps to be chained together. GifGenerator.py allows for generatation of gifs like the ones on this page. It also shows how the locomotion model can be used for building more complex animations; for example it shows how to change the origin from step to step, and how to blend two steps to make them match exactly.
+* The result model is a model for a single walking step. A walking animation requires many such single steps to be chained together. GifGenerator.py allows for generation of gifs like the ones on this page. It also shows how the locomotion model can be used for building more complex animations; for example it shows how to change the origin from step to step, and how to blend two steps to make them match exactly.
 
 ![example](img/animation1.gif)
 
