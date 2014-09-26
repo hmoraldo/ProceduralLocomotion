@@ -26,7 +26,7 @@ The way to train the procedural locomotion system is as follows:
 
 * AnimationViewer.py can be used to view the result. As shown in the screenshot below, it allows the user to play a given walking animation (by changing the AnimationPercent parameter) and to change the walking or running speed (Step size parameter). The Visualize.py file also allows to do simple visualizations of the input dataset.
 
-![anim viewer](anim-viewer.png)
+![anim viewer](img/anim-viewer.png)
 
 * The result model is a model for a single walking step. A walking animation requires many such single steps to be chained together. GifGenerator.py allows to generate gifs like the ones on this page. It also shows how the locomotion model can be used for building more complex animations; for example it shows how to change the origin from step to step, and how to blend two steps to make them match exactly.
 
