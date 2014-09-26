@@ -1,21 +1,35 @@
 Procedural Locomotion
 =====================
 
-Automating human walk cycles using machine learning
+Automating human walk cycles using machine learning.
 
-![example](img/animation.gif)
+![example](img/animation1.gif)
 
+This system allows to generate continuous walking animations that have a speed (or step distance) parameter. The same procedural animation can be run at different speeds: walking, running, and any other speed in between.
 
-Notes
------
+![example 2](img/animation2.gif)
 
-To view the trained locomotion, do:
+![example 3](img/animation3.gif)
 
-`cd src`
+Training
+--------
 
-`python AnimationViewer.py`
+The same training process that is used for locomotion, could also be used for many other purposes, like animal locomotion, and general human movements. Also, this could be easily generalized to 3D.
 
-Notes on training the model will be added in the future.
+The way to train the procedural locomotion system is as follows:
 
-This project uses data extracted by the [animation editor project](https://github.com/hmoraldo/AnimationEditor).
+* Vertex position is extracted from videos and animations using the [animation editor project](https://github.com/hmoraldo/AnimationEditor). The data used to generate this walking animations on the images above is included in the data/ directory.
+
+* The extracted data is normalized using NormalizeAll.py. This normalization process converts all vertices that were extracted from animations of different subjects into a single normalized dataset. Interpolated data can also be added at this step, which can be useful in some cases (although it wasn't critical really). The result of this step is a dataset with two input variables (step size and frame), and the normaliced vertex coordinates as output variables.
+
+* The model is learnt using Learn.py. This uses linear regression to learn the procedural locomotion model.
+
+* AnimationViewer.py can be used to view the result. As shown in the screenshot below, it allows the user to play a given walking animation (by changing the AnimationPercent parameter) and to change the walking or running speed (Step size parameter). The Visualize.py file also allows to do simple visualizations of the input dataset.
+
+![anim viewer](anim-viewer.png)
+
+* The result model is a model for a single walking step. A walking animation requires many such single steps to be chained together. GifGenerator.py allows to generate gifs like the ones on this page. It also shows how the locomotion model can be used for building more complex animations; for example it shows how to change the origin from step to step, and how to blend two steps to make them match exactly.
+
+![example](img/animation1.gif)
+
 
